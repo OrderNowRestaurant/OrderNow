@@ -1,0 +1,7 @@
+<section class="min-h-screen flex justify-center items-center">
+    @if (this.parameter == "register") {
+        <app-auth-form formTitle="Registro" formFunction="register"></app-auth-form>
+    } @else {
+        <app-auth-form formTitle="Login" formFunction="login"></app-auth-form>
+    }
+</section>
