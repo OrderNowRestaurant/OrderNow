@@ -2,6 +2,9 @@ import { Component, inject, input, Input, signal } from '@angular/core';
 import { AuthService } from '../../../../services/api/auth/auth.service';
 import { Router } from '@angular/router';
 import { form, minLength, required, FormField } from '@angular/forms/signals';
+import { MessageDialogComponent } from '../../../molecules/message-dialog.component/message-dialog.component';
+import { AlertService } from '../../../../services/alert/alert.service';
+import { MessageTypesEnum } from '../../../../enums/MessageTypes.enum';
 
 @Component({
   selector: 'app-auth-form',
@@ -10,11 +13,13 @@ import { form, minLength, required, FormField } from '@angular/forms/signals';
   styleUrl: './auth-form.component.css',
 })
 export class AuthFormComponent {
-  public formTitle = input.required<string>();
-  public formFunction = input.required<string>();
+	public formTitle = input.required<string>();
+	public formFunction = input.required<string>();
 
-  authService = inject(AuthService);
-	router = inject(Router);
+	private alertService = inject(AlertService);
+
+  	private authService = inject(AuthService);
+	private router = inject(Router);
 
 	authModel = signal({
 		username: '',
@@ -37,6 +42,8 @@ export class AuthFormComponent {
 				this.authService.setToken(res.token);
 				this.authService.setUsername(res.username);
 
+				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
+
 				this.router.navigateByUrl("home");
 			},
 			error: (err) => {
@@ -50,6 +57,8 @@ export class AuthFormComponent {
 
 		this.authService.register({ username, password }).subscribe({
 			next: (res) => {
+				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
+
 				this.router.navigateByUrl("/home");
 			},
 			error: (err) => {

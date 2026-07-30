@@ -2,7 +2,8 @@ import { Service } from '@angular/core';
 import { ServerApiService } from '../server/server-api.service';
 import { UserInterface } from '../../../interfaces/user-interface';
 import { Observable } from 'rxjs';
-import { AuthResponseInterface } from '../../../interfaces/auth-response-interface';
+import { AuthResponseInterface } from '../../../interfaces/responses/auth-response-interface';
+import { BaseResponseInterface } from '../../../interfaces/responses/base-response';
 
 @Service()
 export class AuthService extends ServerApiService {
@@ -30,7 +31,7 @@ export class AuthService extends ServerApiService {
         localStorage.removeItem("username");
     }
 
-    public register(user: UserInterface): Observable<Object> {
+    public register(user: UserInterface): Observable<BaseResponseInterface> {
         return this.post("user/register", {
             username: user.username,
             password: user.password

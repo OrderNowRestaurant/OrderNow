@@ -1,0 +1,21 @@
+@if (this.authService.isLoggedIn()) {
+    <nav class="bg-(--surface) shadow-xl flex items-center justify-between px-6 py-2">
+        <div class="flex items-center">
+            <div class="flex items-center">
+                <a href="/home" class="flex items-center">
+                    <img src="images/logo.png" alt="Logo de OrderNow" class="w-16 h-auto shrink-0"/> 
+                </a>
+            </div>
+            
+            <div class="flex items-center gap-x-2 ml-10">
+                <app-nav-link linkName="Home" link="/home" class="flex items-center"></app-nav-link>
+                <app-nav-link linkName="Recetas" link="recetas" class="flex items-center"></app-nav-link>
+            </div>
+
+        </div>
+        
+        <div>
+            <button class="bg-(--error) text-white py-2 px-5 rounded-lg hover:bg-(--error-hover) transition-all cursor-pointer">Cerrar sesión</button>
+        </div>
+    </nav>
+}
