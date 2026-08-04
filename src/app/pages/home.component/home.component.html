@@ -1,1 +1,5 @@
-<p>home.component works!</p>
+@if (this.restaurantGlobalService.restaurant()?.name) {
+    <p>Hola</p>
+} @else {
+    <app-create-restaurant-form></app-create-restaurant-form>
+}
