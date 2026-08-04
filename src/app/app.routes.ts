@@ -3,6 +3,7 @@ import { AuthPageComponent } from './pages/auth-page.component/auth-page.compone
 import { HomeComponent } from './pages/home.component/home.component';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public-guard';
+import { ManagementComponent } from './pages/management.component/management.component';
 
 export const routes: Routes = [
     {
@@ -13,6 +14,11 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
+        canMatch: [authGuard]
+    },
+    {
+        path: 'management',
+        component: ManagementComponent,
         canMatch: [authGuard]
     }
 ];
