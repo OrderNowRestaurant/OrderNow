@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home.component/home.component';
 import { authGuard } from './guards/auth.guard';
 import { publicGuard } from './guards/public-guard';
 import { ManagementComponent } from './pages/management.component/management.component';
+import { restaurantResolver } from './resolvers/restaurant.resolver';
 
 export const routes: Routes = [
     {
@@ -14,7 +15,10 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomeComponent,
-        canMatch: [authGuard]
+        canMatch: [authGuard],
+        resolve: {
+            restaurantLoaded: restaurantResolver
+        }
     },
     {
         path: 'management',

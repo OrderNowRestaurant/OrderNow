@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { RestaurantInterface } from '../../interfaces/restaurant/restaurant-interface';
 import { RestaurantService } from '../api/restaurant/resturant.service';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,19 +19,20 @@ export class RestaurantGlobalService {
         this.loadRestaurant();
     }
 
-    loadRestaurant(): void {
+    async loadRestaurant(): Promise<boolean> {
         this._loading.set(true);
 
-        this.restaurantService.getRestaurantByUser().subscribe({
-            next: (res) => {
-                this._restaurant.set(res.restaurant);
-                this._loading.set(false);
-            },
-            error: (err) => {
-                console.error('Error al obtener restaurante:', err);
-                this._loading.set(false);
-            }
-        });
+        try {
+            const res = await firstValueFrom(this.restaurantService.getRestaurantByUser());
+            this._restaurant.set(res.restaurant);
+            this._loading.set(false);
+            return true;
+        } catch (err) {
+            console.error('Error al obtener restaurante:', err);
+            this._restaurant.set(null);
+            this._loading.set(false);
+            return false;
+        }
     }
 
     updateLocalRestaurant(updated: RestaurantInterface): void {
