@@ -1,4 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { RestaurantInterface } from '../../../interfaces/restaurant/restaurant-interface';
+import { RestaurantGlobalService } from '../../../services/global/restaurant-global.service';
 
 @Component({
   selector: 'app-nav-link',
@@ -9,4 +11,8 @@ import { Component, input } from '@angular/core';
 export class NavLinkComponent {
 	public linkName = input.required<string>();
 	public link = input.required<string>();
+
+  restaurantGlobalService = inject(RestaurantGlobalService);
+
+  restaurant?: RestaurantInterface = this.restaurantGlobalService.restaurant;
 }

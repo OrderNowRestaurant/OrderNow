@@ -1,0 +1,8 @@
+<div>
+    <form method="post" (submit)="onSubmit($event)">
+        <label>Nombre del restaurante: </label>
+        <input type="text" [formField]="restaurantForm.name"/>
+
+        <button type="submit">Crear restaurante</button>
+    </form>
+</div>
