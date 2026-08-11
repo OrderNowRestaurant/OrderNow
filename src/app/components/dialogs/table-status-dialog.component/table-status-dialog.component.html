@@ -1,0 +1,20 @@
+<dialog #dialog  class="mx-auto my-auto px-5 py-2 rounded-lg bg-(--surface)">
+    <h1 class="text-2xl font-bold text-(--primary-text)">Cambiar el estado de la mesa</h1>
+
+    <div class="flex flex-col my-5">
+        @if (this.status() != "LIBRE") {
+            <button (click)="this.changeStatus('LIBRE')" value="LIBRE" class="bg-(--surface) py-2 px-5 cursor-pointer text-lg hover:bg-(--surface-hover) transition-all">Libre</button>
+        }
+
+        @if (this.status() != "OCUPADA") {
+            <button (click)="this.changeStatus('OCUPADA')" value="OCUPADA" class="bg-(--surface) py-2 px-5 cursor-pointer text-lg hover:bg-(--surface-hover) transition-all">Ocupada</button>
+        }
+
+        @if (this.status() != "NO_DISPONIBLE") {
+            <button (click)="this.changeStatus('NO_DISPONIBLE')" value="NO_DISPONIBLE" class="bg-(--surface) py-2 px-5 cursor-pointer text-lg hover:bg-(--surface-hover) transition-all">No disponible</button>
+        }
+    </div>
+
+
+    <button (click)="this.close()" class="bg-(--error) hover:bg-(--error-hover) text-white px-5 py-2 rounded-lg cursor-pointer">Cerrar</button>
+</dialog>

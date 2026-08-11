@@ -1,0 +1,18 @@
+<div class="rounded-lg bg-(--surface) w-full px-5 py-5">
+    <h2 class="text-xl text-center">{{ this.tableSignal().name }}</h2>
+    
+    <app-qr-code [qrToken]="this.tableSignal().qrToken"></app-qr-code>
+
+    <div class="mt-4 flex items-center justify-between gap-3 flex-wrap">
+        <app-status-budget [status]="this.tableSignal().status"></app-status-budget>
+        <button
+            type="button"
+            class="rounded-lg bg-(--primary) px-3 py-2 text-sm font-semibold text-white hover:bg-(--primary-hover) cursor-pointer"
+            (click)="openStatusDialog()"
+        >
+            Cambiar estado
+      </button>
+    </div>
+
+    <app-table-status-dialog #statusDialog [status]="this.tableSignal().status" [table]="this.tableSignal()" (statusChanged)="onStatusChanged($event)"></app-table-status-dialog>
+</div>
