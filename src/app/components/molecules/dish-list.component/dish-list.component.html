@@ -1,0 +1,3 @@
+@for (dish of this.dishService.dishList(); track dish.name) {
+    <app-dish-card [dish]="dish"></app-dish-card>
+}
