@@ -10,7 +10,7 @@
     "serve:ssr:OrderNow": "node dist/OrderNow/server/server.mjs"
   },
   "private": true,
-  "packageManager": "npm@11.13.0",
+  "packageManager": "pnpm@11.13.0",
   "dependencies": {
     "@angular/common": "^22.0.0",
     "@angular/compiler": "^22.0.0",
@@ -20,9 +20,11 @@
     "@angular/platform-server": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.7",
+    "angularx-qrcode": "^22.0.1",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "~0.16.2"
   },
   "devDependencies": {
     "@angular/build": "^22.0.7",
