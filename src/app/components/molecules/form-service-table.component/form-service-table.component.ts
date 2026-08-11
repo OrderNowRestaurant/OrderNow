@@ -34,6 +34,8 @@ export class FormServiceTableComponent {
 				
 				this.tableService.addTable(res.tables[0]);
 				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
+
+				this.tableModel.set({ name: ''});
 			},
 
 			error: (err) => {

@@ -30,7 +30,11 @@ export class ServiceTableListComponent {
 	}
 
 
-	public removeTable() {
-
+	public onTableDeleted(deletedToken: string) {
+		const updatedTables = this.tableService.tableList().filter(
+			table => table.qrToken !== deletedToken
+		);
+		
+		this.tableService.setTables(updatedTables);
 	}
 }

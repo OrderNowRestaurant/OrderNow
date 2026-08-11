@@ -28,6 +28,12 @@ export class TableService extends ServerApiService {
         });
     }
 
+    public deleteTable(qrToken: string) {
+        return this.post<TableResponse>("table/delete", {
+            qrToken: qrToken
+        });
+    }
+
     public setTables(tables: TableInterface[]) {
         this._tableList.set(tables);
     }
@@ -35,4 +41,5 @@ export class TableService extends ServerApiService {
     public addTable(newTable: TableInterface) {
         this._tableList.update((current) => [...current, newTable]);
     }
+
 }
