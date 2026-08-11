@@ -1,0 +1,17 @@
+<div class="w-1/2 mx-auto bg-(--surface) mt-20 rounded-lg">
+    <div class="pt-10 text-center">
+        <h1 class="text-3xl text-(--text-primary) font-bold">Crea una mesa</h1>
+        <h2 class="text-lg text-(--text-secondary)">Se generará un código QR para esa mesa</h2>
+    </div>
+
+
+    <form method="post" (submit)="onSubmit($event)" class="mt-10 px-20 mx-auto flex flex-col">
+        <label class="text-lg">Nombre de la mesa: </label>
+        
+        <input type="text" [formField]="tableForm.name" placeholder="Mesa X" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
+
+        <button type="submit" class="bg-(--primary) text-white px-5 py-2 my-5 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
+            Crear mesa
+        </button>
+    </form>
+</div>

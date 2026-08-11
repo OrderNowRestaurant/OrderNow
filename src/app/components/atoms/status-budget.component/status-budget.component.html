@@ -1,0 +1,24 @@
+<span>
+    @switch (this.status) {
+        @case ("LIBRE") {
+            <div class="border border-(--border) rounded-xl py-1 px-3 flex gap-3 items-center font">
+                LIBRE
+                <div class="rounded-full w-2 h-2 bg-(--success) animate-pulse"></div>
+            </div>
+        }
+    
+        @case ("OCUPADA") {
+            <div class="border border-(--border) rounded-xl py-1 px-3 flex gap-3 items-center font">
+                OCUPADA
+                <div class="rounded-full w-2 h-2 bg-(--warning) animate-pulse"></div>
+            </div>
+        }
+
+        @case ("NO_DISPONIBLE") {
+            <div class="border border-(--border) rounded-xl py-1 px-3 flex gap-3 items-center font">
+                NO DISPONIBLE
+                <div class="rounded-full w-2 h-2 bg-(--error) animate-pulse"></div>
+            </div>
+        }
+    }
+</span>
