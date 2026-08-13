@@ -3,6 +3,7 @@ import { ServerApiService } from '../server/server-api.service';
 import { DishResponseInterface } from '../../../interfaces/responses/dishes/dish-response-interface';
 import { Observable } from 'rxjs';
 import { DishInterface } from '../../../interfaces/dish/dish-interface';
+import { CreateDishInterface } from '../../../interfaces/dish/create-dish-interface';
 
 @Service()
 export class DishService extends ServerApiService {
@@ -11,11 +12,11 @@ export class DishService extends ServerApiService {
 
 
     public getDishes(): Observable<DishResponseInterface> {
-        return this.get<DishResponseInterface>("/get");
+        return this.get<DishResponseInterface>("dish/get");
     }
 
-    public createDish(dish: DishInterface): Observable<DishResponseInterface> {
-        return this.post<DishResponseInterface>("/create", {
+    public createDish(dish: CreateDishInterface): Observable<DishResponseInterface> {
+        return this.post<DishResponseInterface>("dish/create", {
             name: dish.name,
             description: dish.description,
             time: dish.time,

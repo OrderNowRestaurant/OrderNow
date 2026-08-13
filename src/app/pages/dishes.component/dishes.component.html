@@ -1,4 +1,12 @@
 <section class="my-10">
+    <app-section-title [title]="'Lista de platos'" [subTitle]="'Crea un nuevo plato'"></app-section-title>
+
+    <button (click)="dishDialog.open()" class="bg-(--primary) text-white px-5 py-2 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
+        Crear nuevo plato
+    </button>
+
+    <app-create-dish-dialog #dishDialog></app-create-dish-dialog>
+
     <app-dish-list></app-dish-list>
 
 </section>
