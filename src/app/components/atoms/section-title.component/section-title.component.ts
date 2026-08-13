@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrl: './section-title.component.css',
 })
 export class SectionTitleComponent {
-  @Input() title = '';
-  @Input() subTitle = '';
+  @Input() title: string = '';
+  @Input() subTitle: string = '';
 }

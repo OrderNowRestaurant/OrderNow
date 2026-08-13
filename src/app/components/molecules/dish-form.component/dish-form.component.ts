@@ -7,6 +7,7 @@ import { form, maxLength, minLength, required, FormField } from '@angular/forms/
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { CategoryInterface } from '../../../interfaces/category/category-interface';
 import { SectionTitleComponent } from "../../atoms/section-title.component/section-title.component";
+import { CategoryService } from '../../../services/api/category/category.service';
 
 @Component({
   selector: 'app-dish-form',
@@ -17,13 +18,28 @@ import { SectionTitleComponent } from "../../atoms/section-title.component/secti
 export class DishFormComponent {
   	dishService = inject(DishService);
 	alertService = inject(AlertService);
+	categoryService = inject(CategoryService);
+
+	public categoryList: CategoryInterface[] = [];
+
+	ngOnInit() {
+		this.categoryService.getCategories().subscribe({
+			next: (res) => {
+				this.categoryList = res.categoryList;
+			},
+
+			error: () => {
+
+			}
+		});
+	}
 
 	dishModel = signal({
 		name: '',
 		description: '',
 		time: 0,
 		price: 0,
-		category: {} as CategoryInterface
+		categoryName: ''
 	});
 
 	dishForm = form(this.dishModel, (fieldPath) => {
@@ -35,14 +51,14 @@ export class DishFormComponent {
 	public onSubmit(event: Event): void {
 		event.preventDefault();
 
-		const { name, description, time, price, category } = this.dishModel();
+		const { name, description, time, price, categoryName } = this.dishModel();
 
 		this.dishService.createDish({
 			name,
 			description,
 			time,
 			price,
-			category
+			categoryName
 		}).subscribe({
 			next: (res) => {
 				this.dishService.addDish(res.dishList[0]);
@@ -53,7 +69,7 @@ export class DishFormComponent {
 					description: '',
 					time: 0,
 					price: 0,
-					category: {} as CategoryInterface
+					categoryName: ''
 				});
 			},
 

@@ -1,17 +1,31 @@
-import { Component, Input, input, signal } from '@angular/core';
+import { Component, inject, Input, output, signal } from '@angular/core';
 import { DishInterface } from '../../../interfaces/dish/dish-interface';
+import { DishService } from '../../../services/api/dish/dish.service';
 
 @Component({
   selector: 'app-dish-card',
-  imports: [],
   templateUrl: './dish-card.component.html',
-  styleUrl: './dish-card.component.css',
 })
 export class DishCardComponent {
 	dishSignal = signal({} as DishInterface);
+	dishService = inject(DishService);
 
-	@Input({ required: true }) 
+	tableDeletedSignal = output<string>();
+
+	@Input({ required: true })
 	set dish(value: DishInterface) {
 		this.dishSignal.set(value);
+	}
+
+	public deleteDish() {
+		this.dishService.deleteDish(this.dishSignal().name).subscribe({
+			next: (res) => {
+				this.tableDeletedSignal.emit(this.dishSignal().name);
+				console.error("Poner error en la table card");
+			},
+			error: (err) => {
+				console.error("Poner error en la table card");
+			}
+		});
 	}
 }

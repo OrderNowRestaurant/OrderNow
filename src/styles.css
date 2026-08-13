@@ -14,7 +14,12 @@
     --text-secondary: #64748B;
     --success: #10B981;
     --warning: #F59E0B;
+    --warning-bg: #f59f0b22;
+    --warning-bg-hover: #b8780a32;
+    --warning-hover: #a37629;
     --error: #EF4444;
+    --error-bg: #ef44441d;
+    --error-bg-hover: #ef44444e;
     --error-hover: #ac2c2c;
     --info: #3B82F6;
 }

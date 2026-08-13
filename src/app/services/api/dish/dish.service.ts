@@ -21,16 +21,26 @@ export class DishService extends ServerApiService {
             description: dish.description,
             time: dish.time,
             price: dish.price,
-            category: dish.category
+            categoryName: dish.categoryName
+        });
+    }
+
+    public deleteDish(dishName: string): Observable<DishResponseInterface> {
+        return this.post<DishResponseInterface>("dish/delete", {
+            dishName: dishName
         });
     }
 
      public setDishList(dishList: DishInterface[]) {
-            this._dishList.set(dishList);
-        }
-    
-        public addDish(newDish: DishInterface) {
-            this._dishList.update((current) => [...current, newDish]);
-        }
+        this._dishList.set(dishList);
+    }
+
+    public addDish(newDish: DishInterface) {
+        this._dishList.update((current) => [...current, newDish]);
+    }
+
+    public removeDish(dishName: string) {
+
+    }
     
 }
