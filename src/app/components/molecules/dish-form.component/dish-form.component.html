@@ -1,0 +1,14 @@
+<div>
+    <app-section-title [title]="'Crea un plato'"></app-section-title>
+
+
+    <form method="post" (submit)="onSubmit($event)" class="mt-10 px-20 mx-auto flex flex-col">
+        <label class="text-lg">Nombre del plato: </label>
+        
+        <input type="text" [formField]="dishForm.name" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
+
+        <button type="submit" class="bg-(--primary) text-white px-5 py-2 my-5 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
+            Crear plato
+        </button>
+    </form>
+</div>
