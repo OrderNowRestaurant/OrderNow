@@ -49,6 +49,9 @@ export class DishFormComponent {
 
 	dishForm = form(this.dishModel, (fieldPath) => {
 		required(fieldPath.name, {message: 'Name is required'});
+		required(fieldPath.description, {message: 'Description is required'});
+		required(fieldPath.time, {message: 'Time is required'});
+		required(fieldPath.price, {message: 'Price is required'});
 		minLength(fieldPath.name, 4, {message: 'Enter a valid name'});
 		maxLength(fieldPath.name, 100, {message: 'Enter a valid name less than 50 characters'});
 	});
