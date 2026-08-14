@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { RestaurantService } from '../../services/api/restaurant/resturant.service';
 import { RestaurantGlobalService } from '../../services/global/restaurant-global.service';
 import { Router } from '@angular/router';
+import { SectionTitleComponent } from "../../components/atoms/section-title.component/section-title.component";
 
 @Component({
   selector: 'app-management.component',
-  imports: [],
+  imports: [SectionTitleComponent],
   templateUrl: './management.component.html',
   styleUrl: './management.component.css',
 })

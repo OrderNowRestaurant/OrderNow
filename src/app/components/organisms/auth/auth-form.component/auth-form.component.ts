@@ -31,7 +31,7 @@ export class AuthFormComponent {
 		minLength(fieldPath.username, 4, {message: 'Enter a valid username address'});
 
 		required(fieldPath.password, {message: 'Password is required'});
-		minLength(fieldPath.password, 4, {message: 'Password must be at least 8 characters'});
+		minLength(fieldPath.password, 8, {message: 'Password must be at least 8 characters'});
 	});
 
 	public onLogin(): void {

@@ -1,5 +1,10 @@
 <section class="mt-10">
-    <h1 class="text-3xl font-bold">Mantenimiento</h1>
+    <app-section-title [title]="'Mantenimiento'"></app-section-title>
 
+    <p class="text-(--text-secondary) py-3">
+        Al eliminar el restaurante eliminarás todas las cuentas vinculadas a el mismo restaurante incluso la tuya. <b>También se eliminarán pedidos, mesas, platos, categorías creadas, etc.</b>
+        Si está seguro continue.
+    </p>
+    
     <button (click)="this.deleteRestaurant()" class="bg-(--error) text-white px-10 py-2 rounded-lg hover:bg-(--error-hover) transition-all cursor-pointer">Eliminar Restaurante</button>
 </section>

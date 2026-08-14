@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DishListComponent } from './dish-list.component';
+
+describe('DishListComponent', () => {
+  let component: DishListComponent;
+  let fixture: ComponentFixture<DishListComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DishListComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(DishListComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
