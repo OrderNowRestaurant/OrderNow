@@ -6,7 +6,7 @@ import { SectionTitleComponent } from "../../components/atoms/section-title.comp
 
 @Component({
   selector: 'app-dishes.component',
-  imports: [DishListComponent, DishFormComponent, CreateDishDialogComponent, SectionTitleComponent],
+  imports: [DishListComponent, CreateDishDialogComponent, SectionTitleComponent],
   templateUrl: './dishes.component.html',
   styleUrl: './dishes.component.css',
 })
