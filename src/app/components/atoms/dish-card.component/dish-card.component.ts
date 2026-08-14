@@ -11,6 +11,7 @@ export class DishCardComponent {
 	dishService = inject(DishService);
 
 	tableDeletedSignal = output<string>();
+	editDishSignal = output<DishInterface>();
 
 	@Input({ required: true })
 	set dish(value: DishInterface) {
@@ -27,5 +28,9 @@ export class DishCardComponent {
 				console.error("Poner error en la table card");
 			}
 		});
+	}
+
+	public editDish() {
+		this.editDishSignal.emit(this.dishSignal());
 	}
 }

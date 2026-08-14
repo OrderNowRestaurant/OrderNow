@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, Output, EventEmitter } from '@angular/core';
 import { DishService } from '../../../services/api/dish/dish.service';
 import { RestaurantGlobalService } from '../../../services/global/restaurant-global.service';
 import { AlertService } from '../../../services/alert/alert.service';
@@ -19,6 +19,11 @@ export class DishFormComponent {
   	dishService = inject(DishService);
 	alertService = inject(AlertService);
 	categoryService = inject(CategoryService);
+
+	@Output() editSuccess = new EventEmitter<void>();
+
+	public editMode = signal(false);
+	private originalName: string | null = null;
 
 	public categoryList: CategoryInterface[] = [];
 
@@ -51,6 +56,38 @@ export class DishFormComponent {
 	public onSubmit(event: Event): void {
 		event.preventDefault();
 
+		if (this.editMode()) {
+			this.editDish();
+		} else {
+			this.createDish();
+		}
+	}
+
+	public setEditMode(dish: any) {
+		this.editMode.set(true);
+		this.originalName = dish.name;
+		this.dishModel.set({
+			name: dish.name ?? '',
+			description: dish.description ?? '',
+			time: dish.time ?? 0,
+			price: dish.price ?? 0,
+			categoryName: dish.category?.name ?? dish.categoryName ?? ''
+		});
+	}
+
+	public clearEditMode() {
+		this.editMode.set(false);
+		this.originalName = null;
+		this.dishModel.set({ 
+			name: '',
+			description: '',
+			time: 0,
+			price: 0,
+			categoryName: ''
+		});
+	}
+
+	private createDish() {
 		const { name, description, time, price, categoryName } = this.dishModel();
 
 		this.dishService.createDish({
@@ -71,6 +108,31 @@ export class DishFormComponent {
 					price: 0,
 					categoryName: ''
 				});
+			},
+
+			error: (err) => {
+				console.log("Ha ocurrido un error: ", err);
+			}
+		});
+	}
+
+	private editDish() {
+		const { name, description, time, price, categoryName } = this.dishModel();
+
+		this.dishService.editDish({
+			originalName: this.originalName ?? undefined,
+			name,
+			description,
+			time,
+			price,
+			categoryName
+		}).subscribe({
+			next: (res) => {
+				this.dishService.updateDish(res.dishList[0], this.originalName ?? undefined);
+				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
+
+				this.clearEditMode();
+				this.editSuccess.emit();
 			},
 
 			error: (err) => {

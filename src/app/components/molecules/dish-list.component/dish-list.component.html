@@ -17,6 +17,6 @@
     }
 
     @for (dish of filteredDishes(); track dish.name) {
-        <app-dish-card [dish]="dish" (tableDeletedSignal)="onDishDeleted($event)"></app-dish-card>
+        <app-dish-card [dish]="dish" (tableDeletedSignal)="onDishDeleted($event)" (editDishSignal)="onDishEdit($event)"></app-dish-card>
     }
 </div>

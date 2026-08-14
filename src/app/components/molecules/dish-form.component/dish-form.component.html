@@ -1,5 +1,9 @@
-<div>
-    <app-section-title [title]="'Crea un plato'"></app-section-title>
+<div class="pt-10">
+    @if (this.editMode()) {
+        <app-section-title [title]="'Editar un plato'"></app-section-title>
+    } @else {
+        <app-section-title [title]="'Crea un plato'"></app-section-title>
+    }
 
 
     <form method="post" (submit)="onSubmit($event)" class="mt-10 px-30 mx-auto flex flex-col">
@@ -25,7 +29,11 @@
         </select>
 
         <button type="submit" class="bg-(--primary) text-white px-5 py-2 my-5 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
-            Crear plato
+            @if(this.editMode()) {
+                Editar plato
+            } @else {
+                Crear plato
+            }
         </button>
     </form>
 </div>

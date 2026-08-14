@@ -1,71 +1,48 @@
 <article
-  class="flex min-h-[16rem] flex-col justify-between rounded-xl border border-(--border) bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-5"
-  [attr.aria-label]="'Plato ' + this.dishSignal().name"
->
-  <header class="flex items-start justify-between gap-3">
-    <div class="min-w-0 flex-1">
-      <h3 class="m-0 break-words text-4xl font-extrabold leading-[0.95] tracking-[-0.06em] text-(--text-main)">
-        {{ this.dishSignal().name }}
-      </h3>
+	class="flex min-h-[16rem] flex-col justify-between rounded-xl border border-(--border) bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-5"
+	[attr.aria-label]="'Plato ' + this.dishSignal().name">
+	<header class="flex items-start justify-between gap-3">
+		<div class="min-w-0 flex-1">
+			<h3 class="m-0 break-words text-4xl font-extrabold leading-[0.95] tracking-[-0.06em] text-(--text-main)">
+				{{ this.dishSignal().name }}
+			</h3>
 
-      @if (this.dishSignal().description) {
-        <p class="mt-2 break-words text-base leading-relaxed text-(--text-secondary)">
-          {{ this.dishSignal().description }}
-        </p>
-      }
-    </div>
+			@if (this.dishSignal().description) {
+				<p class="mt-2 break-words text-base leading-relaxed text-(--text-secondary)">
+					{{ this.dishSignal().description }}
+				</p>
+			}
+		</div>
 
-    <div class="flex shrink-0 items-center gap-2" aria-label="Acciones del plato">
-        <button
-            (click)="this.deleteDish()"
-            type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-(--error-bg) text-(--error) transition-transform duration-200 hover:scale-105 hover:bg-(--error-bg-hover) focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-(--error) cursor-pointer"
-            [attr.aria-label]="'Eliminar ' + this.dishSignal().name"
-            title="Eliminar plato"
-        >
-            <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 7l16 0" />
-            <path d="M10 11l0 6" />
-            <path d="M14 11l0 6" />
-            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-            </svg>
-        </button>
+		<div class="flex shrink-0 items-center gap-2" aria-label="Acciones del plato">
+			<button (click)="this.deleteDish()" type="button"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-(--error-bg) text-(--error) transition-transform duration-200 hover:scale-105 hover:bg-(--error-bg-hover) focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-(--error) cursor-pointer"
+				[attr.aria-label]="'Eliminar ' + this.dishSignal().name" title="Eliminar plato"
+			>
+				<svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+			</button>
 
-        <button
-            type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-(--warning-bg) text-(--warning) transition-transform duration-200 hover:scale-105 hover:bg-(--warning-bg-hover) focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-(--warning) cursor-pointer"
-            [attr.aria-label]="'Editar ' + this.dishSignal().name"
-            title="Editar plato"
-        >
-            <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
-            <path d="M13.5 6.5l4 4" />
-            </svg>
-        </button>
-    </div>
-  </header>
+			<button type="button" (click)="this.editDish()"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-(--warning-bg) text-(--warning) transition-transform duration-200 hover:scale-105 hover:bg-(--warning-bg-hover) focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-(--warning) cursor-pointer"
+				[attr.aria-label]="'Editar ' + this.dishSignal().name" title="Editar plato"
+			>
+				<svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
+			</button>
+		</div>
+	</header>
 
-  <div class="mt-5 flex flex-wrap items-end justify-between gap-3">
-    <div class="flex flex-col gap-1">
-        <span class="inline-flex items-center gap-1 text-base font-bold text-(--info)">
-            {{ this.dishSignal().time }} min
-            <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
-            <path d="M12 7v5l3 3" />
-            </svg>
-        </span>
-        <span class="text-base font-extrabold text-(--warning)">{{ this.dishSignal().price }} €</span>
-    </div>
+	<div class="mt-5 flex flex-wrap items-end justify-between gap-3">
+		<div class="flex flex-col gap-1">
+			<span class="inline-flex items-center gap-1 text-base font-bold text-(--info)">
+				{{ this.dishSignal().time }} min
+				<svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></svg>
+			</span>
+			<span class="text-base font-extrabold text-(--warning)">{{ this.dishSignal().price }} €</span>
+		</div>
 
-    <span
-      class="inline-flex items-center justify-center rounded-full border border-(--border) bg-(--surface-hover) px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--text-secondary)"
-      [attr.aria-label]="'Categoría: ' + this.dishSignal().category.name"
-    >
-      {{ this.dishSignal().category.name }}
-    </span>
-  </div>
+		<span class="inline-flex items-center justify-center rounded-full border border-(--border) bg-(--surface-hover) px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-(--text-secondary)"
+			[attr.aria-label]="'Categoría: ' + this.dishSignal().category.name">
+			{{ this.dishSignal().category.name }}
+		</span>
+	</div>
 </article>

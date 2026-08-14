@@ -1,4 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
+import { output } from '@angular/core';
 import { DishService } from '../../../services/api/dish/dish.service';
 import { DishInterface } from '../../../interfaces/dish/dish-interface';
 import { DishCardComponent } from '../../atoms/dish-card.component/dish-card.component';
@@ -28,6 +29,9 @@ export class DishListComponent {
 
 		return dishes.filter((dish) => dish.category?.name === currentFilter);
 	});
+
+	// Emit dish to parent when user requests edit
+	dishEdit = output<DishInterface>();
 
 	ngOnInit(): void {
 		this.loadDishes();
@@ -69,5 +73,9 @@ export class DishListComponent {
 		);
 		
 		this.dishService.setDishList(updatedDish);
+	}
+
+	public onDishEdit(dish: DishInterface) {
+		this.dishEdit.emit(dish);
 	}
 }

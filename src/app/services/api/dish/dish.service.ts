@@ -25,6 +25,17 @@ export class DishService extends ServerApiService {
         });
     }
 
+    public editDish(dish: CreateDishInterface & { originalName?: string }): Observable<DishResponseInterface> {
+        return this.put<DishResponseInterface>("dish/edit", {
+            originalName: dish.originalName,
+            name: dish.name,
+            description: dish.description,
+            time: dish.time,
+            price: dish.price,
+            categoryName: dish.categoryName
+        });
+    }
+
     public deleteDish(dishName: string): Observable<DishResponseInterface> {
         return this.post<DishResponseInterface>("dish/delete", {
             dishName: dishName
@@ -37,6 +48,10 @@ export class DishService extends ServerApiService {
 
     public addDish(newDish: DishInterface) {
         this._dishList.update((current) => [...current, newDish]);
+    }
+
+    public updateDish(updatedDish: DishInterface, originalName?: string) {
+        this._dishList.update((current) => current.map(d => d.name === (originalName ?? updatedDish.name) ? updatedDish : d));
     }
 
     public removeDish(dishName: string) {

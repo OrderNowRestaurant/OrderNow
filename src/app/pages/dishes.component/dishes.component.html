@@ -7,6 +7,6 @@
 
     <app-create-dish-dialog #dishDialog></app-create-dish-dialog>
 
-    <app-dish-list></app-dish-list>
+    <app-dish-list (dishEdit)="openDishDialogForEdit($event)"></app-dish-list>
 
 </section>

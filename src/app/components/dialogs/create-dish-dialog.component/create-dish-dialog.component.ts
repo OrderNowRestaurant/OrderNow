@@ -9,8 +9,15 @@ import { DishFormComponent } from "../../molecules/dish-form.component/dish-form
 })
 export class CreateDishDialogComponent {
   	@ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+	@ViewChild(DishFormComponent) dishForm!: DishFormComponent;
 	
-	public open() {
+	public open(mode?: 'create' | 'edit', dish?: any) {
+		if (mode === 'edit' && dish) {
+			this.dishForm.setEditMode(dish);
+		} else {
+			this.dishForm.clearEditMode?.();
+		}
+		
 		this.dialog.nativeElement.showModal();
 	}
 

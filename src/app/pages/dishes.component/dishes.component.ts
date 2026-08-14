@@ -15,6 +15,10 @@ export class DishesComponent {
 	@ViewChild(CreateDishDialogComponent) dishDialog!: CreateDishDialogComponent;
 
 	public openDishDialog() {
-		this.dishDialog.open(); 
+		this.dishDialog.open("create"); 
+	}
+
+	public openDishDialogForEdit(dish: any) {
+		this.dishDialog.open("edit", dish);
 	}
 }
