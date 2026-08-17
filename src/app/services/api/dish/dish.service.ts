@@ -42,7 +42,7 @@ export class DishService extends ServerApiService {
         });
     }
 
-     public setDishList(dishList: DishInterface[]) {
+    public setDishList(dishList: DishInterface[]) {
         this._dishList.set(dishList);
     }
 
@@ -52,10 +52,6 @@ export class DishService extends ServerApiService {
 
     public updateDish(updatedDish: DishInterface, originalName?: string) {
         this._dishList.update((current) => current.map(d => d.name === (originalName ?? updatedDish.name) ? updatedDish : d));
-    }
-
-    public removeDish(dishName: string) {
-
     }
     
 }
