@@ -6,6 +6,7 @@ import { publicGuard } from './guards/public-guard';
 import { ManagementComponent } from './pages/management.component/management.component';
 import { restaurantResolver } from './resolvers/restaurant.resolver';
 import { DishesComponent } from './pages/dishes.component/dishes.component';
+import { MainLayoutComponent } from './components/layouts/main-layout.component/main-layout.component';
 
 export const routes: Routes = [
     {
@@ -14,21 +15,30 @@ export const routes: Routes = [
         canMatch: [publicGuard]
     },
     {
-        path: 'home',
-        component: HomeComponent,
+        path: '',
+        component: MainLayoutComponent,
         canMatch: [authGuard],
-        resolve: {
-            restaurantLoaded: restaurantResolver
-        }
-    },
-    {
-        path: 'management',
-        component: ManagementComponent,
-        canMatch: [authGuard]
-    },
-    {
-        path: 'dishes',
-        component: DishesComponent,
-        canMatch: [authGuard]
+        children: [
+            {
+                path: 'home',
+                component: HomeComponent,
+                resolve: {
+                    restaurantLoaded: restaurantResolver
+                }
+            },
+            {
+                path: 'management',
+                component: ManagementComponent
+            },
+            {
+                path: 'dishes',
+                component: DishesComponent
+            },
+            {
+                path: '',
+                redirectTo: 'home',
+                pathMatch: 'full'
+            }
+        ]
     }
 ];
