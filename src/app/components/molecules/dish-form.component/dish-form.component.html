@@ -17,7 +17,7 @@
         <input type="number" [formField]="dishForm.time" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
 
         <label>Precio del plato: </label>
-        <input type="number" [formField]="dishForm.price" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
+        <input type="number" step="0.01" [formField]="dishForm.price" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
 
         <label>Categoría: </label>
         <select [formField]="dishForm.categoryName" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all cursor-pointer">
