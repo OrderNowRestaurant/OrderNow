@@ -6,7 +6,7 @@
 >
   <option value="">Ningún filtro</option>
 
-  @for (category of categoryList; track $index) {
+  @for (category of this.categoryService.categoryList(); track $index) {
     <option [value]="category.name">{{ category.name }}</option>
   }
 </select>
