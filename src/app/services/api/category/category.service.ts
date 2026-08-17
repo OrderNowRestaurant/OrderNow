@@ -13,8 +13,19 @@ export class CategoryService extends ServerApiService {
         return this.get<CategoryResponseInterface>("category/get");
     }
 
+    public getOwnCategories(): Observable<CategoryResponseInterface> {
+        return this.get<CategoryResponseInterface>("category/own/get");
+    }
+
+
     public createCategory(categoryName: string): Observable<CategoryResponseInterface> {
         return this.post<CategoryResponseInterface>("category/create", {
+            name: categoryName
+        });
+    }
+
+    public deleteCategory(categoryName: string) {
+        return this.post<any>("category/delete", {
             name: categoryName
         });
     }
@@ -24,6 +35,8 @@ export class CategoryService extends ServerApiService {
     }
 
     public addCategory(newCategory: CategoryInterface) {
-        this._categoryList.update((current) => [...current, newCategory]);
+        this._categoryList.update((current) => [...(current ?? []), newCategory]);
     }
+
+    
 }
