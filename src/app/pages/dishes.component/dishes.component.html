@@ -5,7 +5,12 @@
         Crear nuevo plato
     </button>
 
+    <button (click)="categoryDialog.open()" class="bg-(--primary) text-white px-5 py-2 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer mx-2">
+        Crear nueva categoría
+    </button>
+
     <app-create-dish-dialog #dishDialog></app-create-dish-dialog>
+    <app-create-category-dialog #categoryDialog></app-create-category-dialog>
 
     <app-dish-list (dishEdit)="openDishDialogForEdit($event)"></app-dish-list>
 

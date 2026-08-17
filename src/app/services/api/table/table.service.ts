@@ -39,7 +39,7 @@ export class TableService extends ServerApiService {
     }
 
     public addTable(newTable: TableInterface) {
-        this._tableList.update((current) => [...current, newTable]);
+        this._tableList.update((current) => [...(current ?? []), newTable]);
     }
 
 }

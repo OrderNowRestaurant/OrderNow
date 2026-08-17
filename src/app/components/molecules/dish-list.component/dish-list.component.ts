@@ -30,7 +30,6 @@ export class DishListComponent {
 		return dishes.filter((dish) => dish.category?.name === currentFilter);
 	});
 
-	// Emit dish to parent when user requests edit
 	dishEdit = output<DishInterface>();
 
 	ngOnInit(): void {
@@ -53,7 +52,7 @@ export class DishListComponent {
 	public loadCategories() {
 		this.categoryService.getCategories().subscribe({
 			next: (res) => {
-				this.categoryList = res.categoryList;
+				this.categoryService.setCategoryList(res.categoryList);
 			},
 
 			error: () => {

@@ -1,0 +1,27 @@
+<div class="max-w-md bg-[var(--surface)] rounded-lg shadow-sm border border-[var(--border)] overflow-hidden">
+    <table class="w-full table-auto text-sm">
+        <thead class="bg-[var(--surface-hover)]">
+            <tr>
+                <th class="px-3 py-2 text-[var(--text-primary)] text-left">Nombre</th>
+                <th class="px-3 py-2 text-[var(--text-primary)] text-left">Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody class="divide-y divide-[var(--border)]">
+            @if (this.categoryService.categoryList().length === 0) {
+                <tr>
+                    <td class="px-3 py-2 text-[var(--text-secondary)]" colspan="2">No hay categorías.</td>
+                </tr>
+            }
+
+            @for (category of this.categoryService.categoryList(); track category.name) {
+                <tr>
+                    <td class="px-3 py-2 text-[var(--text-primary)]">{{ category.name }}</td>
+                    <td class="px-3 py-2">
+                        <button (click)="onDeleteCategory(category.name)" class="text-sm px-2 py-1 rounded bg-[var(--error-bg)] hover:bg-[var(--error-bg-hover)] text-[var(--error)] border border-[var(--error)] cursor-pointer">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

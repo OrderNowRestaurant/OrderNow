@@ -3,16 +3,18 @@ import { DishListComponent } from "../../components/molecules/dish-list.componen
 import { DishFormComponent } from "../../components/molecules/dish-form.component/dish-form.component";
 import { CreateDishDialogComponent } from "../../components/dialogs/create-dish-dialog.component/create-dish-dialog.component";
 import { SectionTitleComponent } from "../../components/atoms/section-title.component/section-title.component";
+import { CreateCategoryDialogComponent } from '../../components/dialogs/create-category-dialog.component/create-category-dialog.component';
 
 @Component({
   selector: 'app-dishes.component',
-  imports: [DishListComponent, CreateDishDialogComponent, SectionTitleComponent],
+  imports: [DishListComponent, CreateDishDialogComponent, SectionTitleComponent, CreateCategoryDialogComponent],
   templateUrl: './dishes.component.html',
   styleUrl: './dishes.component.css',
 })
 export class DishesComponent {
 	
 	@ViewChild(CreateDishDialogComponent) dishDialog!: CreateDishDialogComponent;
+	@ViewChild(CreateCategoryDialogComponent) categoryDialog!: CreateCategoryDialogComponent;
 
 	public openDishDialog() {
 		this.dishDialog.open("create"); 

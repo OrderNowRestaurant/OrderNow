@@ -1,7 +1,7 @@
 <div class="bg-(--surface) w-fit px-20 py-10 rounded-lg">
     <h1 class="text-3xl font-bold text-center">{{ formTitle() }}</h1>
 
-    <form action="post" (submit)="handleSubmit($event)" class="mt-10 ">
+    <form (submit)="handleSubmit($event)" class="mt-10 ">
         <div class="flex flex-col my-5">
             <label>Username:</label>
             <input id="usernameInput" [formField]="loginForm.username" type="text" placeholder="Enter your username..." class="w-full bg-(--background) py-2 px-5 rounded-lg border-(--border) my-2 transition-all"/>
@@ -12,7 +12,21 @@
             <input id="passwordInput" [formField]="loginForm.password" type="password" placeholder="**************" class="w-full bg-(--background) py-2 px-5 rounded-lg border-(--border) my-2 transition-all"/>
         </div>
         
-        <p>No tienes una cuenta? <a href="auth?form={{this.getOppositeUrl()}}" class="text-(--accent) hover:underline">Regístrate aquí</a></p>
+        <p>
+            @if (this.formFunction() == "login") {
+                ¿No tienes una cuenta? 
+            } @else {
+                ¿Ya tienes una cuenta?
+            }
+            
+            <a href="auth?form={{this.getOppositeUrl()}}" class="text-(--accent) hover:underline">
+                @if (this.formFunction() == "login") {
+                    Regístrate aquí
+                } @else {
+                    Inicia sesión aquí
+                }
+            </a>
+        </p>
 
         <button type="submit" class="bg-(--primary) hover:bg-(--primary-hover) text-white w-full rounded-lg py-2 px-5 mt-10 cursor-pointer">Submit</button>
     </form>
