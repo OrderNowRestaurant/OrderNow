@@ -1,9 +1,11 @@
 <app-form-service-table></app-form-service-table>
 
 <section class="mt-5 flex gap-5 w-full flex-wrap">
-    @if (this.tableService.tableList().length > 0) {
-        @for (serviceTable of this.tableService.tableList(); track $index) {
-            <app-table-card [table]="serviceTable" (tableDeletedSignal)="onTableDeleted($event)"></app-table-card>
+    @if (this.tableService.tableList() != null) {
+        @if (this.tableService.tableList().length > 0) {
+            @for (serviceTable of this.tableService.tableList(); track $index) {
+                <app-table-card [table]="serviceTable" (tableDeletedSignal)="onTableDeleted($event)"></app-table-card>
+            }
         }
     }
 </section>

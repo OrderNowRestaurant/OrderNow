@@ -1,22 +1,26 @@
 <label class="text-xl mx-5">Categoría: </label>
 <select
-  [value]="filter()"
-  (change)="onCategoryChange($event)"
-  class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) bg-(--surface) transition-all cursor-pointer"
+	[value]="filter()"
+	(change)="onCategoryChange($event)"
+	class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) bg-(--surface) transition-all cursor-pointer"
 >
-  <option value="">Ningún filtro</option>
+	<option value="">Ningún filtro</option>
 
-  @for (category of this.categoryService.categoryList(); track $index) {
-    <option [value]="category.name">{{ category.name }}</option>
-  }
+	@for (category of this.categoryService.categoryList(); track $index) {
+		<option [value]="category.name">{{ category.name }}</option>
+	}
 </select>
 
 <div class="mt-5 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
-    @if (filteredDishes().length === 0) {
-        <p class="col-span-full text-(--text-secondary)">No hay platillos para esta categoría.</p>
-    }
-
-    @for (dish of filteredDishes(); track dish.name) {
-        <app-dish-card [dish]="dish" (tableDeletedSignal)="onDishDeleted($event)" (editDishSignal)="onDishEdit($event)"></app-dish-card>
-    }
+    @if (filteredDishes() != null) {
+		@if (filteredDishes().length === 0) {
+			<p class="col-span-full text-(--text-secondary)">No hay platillos para esta categoría.</p>
+		} @else {
+			@for (dish of filteredDishes(); track dish.name) {
+				<app-dish-card [dish]="dish" (tableDeletedSignal)="onDishDeleted($event)" (editDishSignal)="onDishEdit($event)"></app-dish-card>
+			}
+		}
+	} @else {
+		<p class="col-span-full text-(--text-secondary)">No hay platillos para esta categoría.</p>
+	}
 </div>

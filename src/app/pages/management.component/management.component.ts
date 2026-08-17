@@ -3,10 +3,11 @@ import { RestaurantService } from '../../services/api/restaurant/resturant.servi
 import { RestaurantGlobalService } from '../../services/global/restaurant-global.service';
 import { Router } from '@angular/router';
 import { SectionTitleComponent } from "../../components/atoms/section-title.component/section-title.component";
+import { CategoryTableComponent } from "../../components/molecules/category-table.component/category-table.component";
 
 @Component({
   selector: 'app-management.component',
-  imports: [SectionTitleComponent],
+  imports: [SectionTitleComponent, CategoryTableComponent, CategoryTableComponent],
   templateUrl: './management.component.html',
   styleUrl: './management.component.css',
 })

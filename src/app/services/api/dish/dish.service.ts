@@ -47,11 +47,11 @@ export class DishService extends ServerApiService {
     }
 
     public addDish(newDish: DishInterface) {
-        this._dishList.update((current) => [...current, newDish]);
+        this._dishList.update((current) => [...(current ?? []), newDish]);
     }
 
     public updateDish(updatedDish: DishInterface, originalName?: string) {
-        this._dishList.update((current) => current.map(d => d.name === (originalName ?? updatedDish.name) ? updatedDish : d));
+        this._dishList.update((current) => (current ?? []).map(d => d.name === (originalName ?? updatedDish.name) ? updatedDish : d));
     }
     
 }
