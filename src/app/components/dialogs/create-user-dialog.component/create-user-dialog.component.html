@@ -1,0 +1,5 @@
+<dialog #dialog class="mx-auto w-1/2 my-auto px-5 py-2 rounded-lg bg-(--surface) text-center">
+    <app-user-form (editSuccess)="close()"></app-user-form>
+
+    <button (click)="this.close()" class="bg-(--error) hover:bg-(--error-hover) text-white px-5 py-2 rounded-lg cursor-pointer">Cerrar</button>
+</dialog>

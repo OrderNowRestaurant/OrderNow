@@ -1,0 +1,33 @@
+<div class="pt-10">
+    @if (this.editMode()) {
+        <app-section-title [title]="'Editar un trabajador'"></app-section-title>
+    } @else {
+        <app-section-title [title]="'Crea un trabajador'" [subTitle]="'El trabajador creado podrá acceder a la aplicación y dependiendo de su rol podrá hacer unas cosas u otras'"></app-section-title>
+    }
+
+
+    <form method="post" (submit)="onSubmit($event)" class="mt-10 px-30 mx-auto flex flex-col">
+        <label class="text-lg">Nombre del trabajador: </label>
+        <input type="text" [formField]="userForm.username" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
+
+        <label>Contraseña: </label>
+        <input type="password" [formField]="userForm.password" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
+
+        <label>Role: </label>
+        <select [formField]="userForm.roleName" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all cursor-pointer">
+            
+            @for (role of this.roleList; track $index) {
+                <option>{{ role.roleName }}</option>
+            }
+
+        </select>
+
+        <button type="submit" class="bg-(--primary) text-white px-5 py-2 my-5 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
+            @if(this.editMode()) {
+                Editar trabajador
+            } @else {
+                Crear trabajador
+            }
+        </button>
+    </form>
+</div>
