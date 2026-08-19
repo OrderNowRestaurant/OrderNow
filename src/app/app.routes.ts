@@ -8,6 +8,7 @@ import { restaurantResolver } from './resolvers/restaurant.resolver';
 import { DishesComponent } from './pages/dishes.component/dishes.component';
 import { MainLayoutComponent } from './components/layouts/main-layout.component/main-layout.component';
 import { WorkersComponent } from './pages/workers.component/workers.component';
+import { ServiceTableComponent } from './pages/service-table.component/service-table.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,10 @@ export const routes: Routes = [
                 path: '',
                 redirectTo: 'home',
                 pathMatch: 'full'
+            },
+            {
+                path: 'tables',
+                component: ServiceTableComponent
             },
             {
                 path: 'management',
