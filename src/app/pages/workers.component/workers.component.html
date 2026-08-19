@@ -1,11 +1,11 @@
 <section class="my-10">
-    <app-section-title [title]="'Trabajadores'" [subTitle]="'Gestiona qué trabajadores pueden entrar a la aplicación'"></app-section-title>
+    <app-section-title [title]="'Trabajadores'" [subTitle]="'Gestiona qué trabajadores pueden entrar a la aplicación'"></app-section-title>    
 
-    
-
-    <button (click)="this.openUserDialog()" class="bg-(--primary) text-white px-5 py-2 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
+    <button (click)="this.openUserDialog()" class="bg-(--primary) text-white px-5 py-2 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer mb-5">
         Crear un trabajador
     </button>
+
+    <app-user-table (editRequested)="openUserDialogForEdit($event)"></app-user-table>
 
     <app-create-user-dialog #userDialog></app-create-user-dialog>
 </section>

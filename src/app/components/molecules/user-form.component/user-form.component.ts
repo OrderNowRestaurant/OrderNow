@@ -6,6 +6,7 @@ import { form, required, FormField } from '@angular/forms/signals';
 import { RoleService } from '../../../services/api/role/role.service';
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { SectionTitleComponent } from "../../atoms/section-title.component/section-title.component";
+import { UserInterface } from '../../../interfaces/user/user-interface';
 
 @Component({
   selector: 'app-user-form',
@@ -59,20 +60,21 @@ export class UserFormComponent {
 		}
 	}
 
-	public setEditMode(user: any) {
+	public setEditMode(user: UserInterface) {
 		this.editMode.set(true);
 		this.originalUsername = user.username;
 
 		this.userModel.set({
 			username: user.username ?? '',
 			password: user.password ?? '',
-			roleName: user.role ?? {}
+			roleName: user.roleName ?? ''
 		});
 	}
 
 	public clearEditMode() {
 		this.editMode.set(false);
 		this.originalUsername = null;
+		
 		this.userModel.set({ 
 			username: '',
 			password: '',

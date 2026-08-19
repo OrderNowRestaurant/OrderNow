@@ -3,6 +3,7 @@ import { ServerApiService } from '../server/server-api.service';
 import { Observable } from 'rxjs';
 import { UserResponse } from '../../../interfaces/responses/users/user-response';
 import { UserInterface } from '../../../interfaces/user/user-interface';
+import { UserListResponse } from '../../../interfaces/responses/users/user-list-response';
 
 @Service()
 export class UserService extends ServerApiService {
@@ -25,10 +26,20 @@ export class UserService extends ServerApiService {
     }
 
     public editUser(user: UserInterface & { originalUsername?: string }): Observable<UserResponse> {
-        return this.put<UserResponse>("/user/edit", {
-            user: user,
+        return this.put<UserResponse>("user/edit", {
+            username: user.username,
+            password: user.password,
+            roleName: user.roleName,
             originalUsername: user.originalUsername
         });
+    }
+
+    public getUsers(): Observable<UserListResponse> {
+        return this.get<UserListResponse>("user/get");
+    }
+
+    public deleteUser(username: string): Observable<UserListResponse> {
+        return this.post<UserListResponse>("user/delete/"+username);
     }
 
     public setUserList(tables: UserInterface[]) {
