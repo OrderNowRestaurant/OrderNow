@@ -23,7 +23,7 @@ export class ServerApiService {
         return this.BASE_URL.endsWith('/') ? this.BASE_URL : `${this.BASE_URL}/`;
     }
 
-    public post<T>(endpoint: string, body: any) {
+    public post<T>(endpoint: string, body?: any) {
         return this.http.post<T>(this.getUrl() + endpoint, body, { headers: this.getHeaders() });
     }
 

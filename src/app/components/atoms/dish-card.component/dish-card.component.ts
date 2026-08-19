@@ -5,6 +5,7 @@ import { DishService } from '../../../services/api/dish/dish.service';
 @Component({
   selector: 'app-dish-card',
   templateUrl: './dish-card.component.html',
+  styleUrl: './dish-card.component.css'
 })
 export class DishCardComponent {
 	dishSignal = signal({} as DishInterface);

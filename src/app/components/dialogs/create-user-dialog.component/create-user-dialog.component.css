@@ -1,0 +1,24 @@
+dialog[open] {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+  transition: display 0.5s allow-discrete, overlay 0.5s allow-discrete, background-color 0.5s;
+}
+
+dialog[open]::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+dialog {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, display 0.3s allow-discrete, overlay 0.3s allow-discrete;
+}

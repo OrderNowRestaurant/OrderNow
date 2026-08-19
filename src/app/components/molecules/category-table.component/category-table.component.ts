@@ -17,7 +17,9 @@ export class CategoryTableComponent {
 	public loadCategories() {
 		this.categoryService.getOwnCategories().subscribe({
 			next: (res) => {
-				this.categoryService.setCategoryList(res.categoryList);
+				if(res.categoryList != null && res.categoryList.length != 0) {
+					this.categoryService.setCategoryList(res.categoryList);
+				}
 			},
 			error: () => {
 

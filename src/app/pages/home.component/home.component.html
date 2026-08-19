@@ -1,8 +1,7 @@
 <section class="mt-10">
-    @if (this.restaurantGlobalService.restaurant()?.name) {
-        <app-section-title [title]="'Lista de mesas'" [subTitle]="'Crea una nueva mesa'"></app-section-title>
-        <app-service-table-list></app-service-table-list>
-    } @else {
+    @if (!this.restaurantGlobalService.restaurant()?.name) {
         <app-create-restaurant-form></app-create-restaurant-form>
+    } @else {
+        
     }
 </section>
