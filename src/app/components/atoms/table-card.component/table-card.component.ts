@@ -5,6 +5,9 @@ import { QrCodeComponent } from "../../molecules/qr-code.component/qr-code.compo
 import { TableStatusDialogComponent } from '../../dialogs/table-status-dialog.component/table-status-dialog.component';
 import { StatusBudgetComponent } from "../status-budget.component/status-budget.component";
 import { TableService } from '../../../services/api/table/table.service';
+import { AlertService } from '../../../services/alert/alert.service';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
+import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 
 @Component({
   selector: 'app-table-card',
@@ -16,6 +19,7 @@ import { TableService } from '../../../services/api/table/table.service';
 export class TableCardComponent {
 	tableSignal = signal<TableInterface>({} as TableInterface);
 	tableService = inject(TableService);
+	alertService = inject(AlertService);
 
 	tableDeletedSignal = output<string>();
 
@@ -32,8 +36,8 @@ export class TableCardComponent {
 
 	public onStatusChanged(newStatus: string) {
 		this.tableSignal.update(currentTable => ({
-		...currentTable,
-		status: newStatus
+			...currentTable,
+			status: newStatus
 		}));
 	}
 
@@ -41,10 +45,10 @@ export class TableCardComponent {
 		this.tableService.deleteTable(this.tableSignal().qrToken).subscribe({
 			next: (res) => {
 				this.tableDeletedSignal.emit(this.tableSignal().qrToken);
-				console.error("Poner error en la table card");
+				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
 			},
-			error: (err) => {
-				console.error("Poner error en la table card");
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

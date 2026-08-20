@@ -1,12 +1,14 @@
-import { Component, inject, Output, signal, EventEmitter } from '@angular/core';
+import { Component, inject, Output, signal, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { UserService } from '../../../services/api/user/user.service';
 import { AlertService } from '../../../services/alert/alert.service';
 import { RoleInterface } from '../../../interfaces/role/role-interface';
 import { form, required, FormField } from '@angular/forms/signals';
 import { RoleService } from '../../../services/api/role/role.service';
+import { AuthService } from '../../../services/api/auth/auth.service';
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { SectionTitleComponent } from "../../atoms/section-title.component/section-title.component";
 import { UserInterface } from '../../../interfaces/user/user-interface';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-user-form',
@@ -18,11 +20,15 @@ export class UserFormComponent {
   	userService = inject(UserService);
 	roleService = inject(RoleService);
 	alertService = inject(AlertService);
+	authService = inject(AuthService);
+
+	@ViewChild('roleSelect') roleSelect?: ElementRef<HTMLSelectElement>;
 
 	@Output() editSuccess = new EventEmitter<void>();
 
 	public editMode = signal(false);
 	private originalUsername: string | null = null;
+	private originalRoleName: string | null = null;
 
 	public roleList: RoleInterface[] = [];
 
@@ -69,6 +75,14 @@ export class UserFormComponent {
 			password: user.password ?? '',
 			roleName: user.roleName ?? ''
 		});
+		this.originalRoleName = user.roleName ?? '';
+
+		// Disable role select if editing self (manipulate DOM to avoid NG8022)
+		Promise.resolve().then(() => {
+			if (this.roleSelect) {
+				this.roleSelect.nativeElement.disabled = (this.authService.getUsername() === user.username);
+			}
+		});
 	}
 
 	public clearEditMode() {
@@ -80,6 +94,17 @@ export class UserFormComponent {
 			password: '',
 			roleName: ''
 		});
+
+		Promise.resolve().then(() => {
+			if (this.roleSelect) {
+				this.roleSelect.nativeElement.disabled = false;
+			}
+		});
+	}
+
+	public isEditingSelf(): boolean {
+		const current = this.authService.getUsername();
+		return this.editMode() && current !== null && this.originalUsername === current;
 	}
 
 	private createDish() {
@@ -101,8 +126,8 @@ export class UserFormComponent {
 				});
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}
@@ -111,6 +136,13 @@ export class UserFormComponent {
 		const { username, password, roleName } = this.userModel();
 
 		const originalUsername = this.originalUsername ?? undefined
+
+		// Prevent changing own role locally
+		const current = this.authService.getUsername();
+		if (current !== null && current === this.originalUsername && roleName !== (this.originalRoleName ?? '')) {
+			this.alertService.show('No puedes cambiar tu propio rol.', MessageTypesEnum.ERROR);
+			return;
+		}
 
 		this.userService.editUser({
 			username,
@@ -126,8 +158,8 @@ export class UserFormComponent {
 				this.editSuccess.emit();
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

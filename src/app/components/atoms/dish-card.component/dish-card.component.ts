@@ -1,6 +1,9 @@
 import { Component, inject, Input, output, signal } from '@angular/core';
 import { DishInterface } from '../../../interfaces/dish/dish-interface';
 import { DishService } from '../../../services/api/dish/dish.service';
+import { AlertService } from '../../../services/alert/alert.service';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
+import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 
 @Component({
   selector: 'app-dish-card',
@@ -10,6 +13,7 @@ import { DishService } from '../../../services/api/dish/dish.service';
 export class DishCardComponent {
 	dishSignal = signal({} as DishInterface);
 	dishService = inject(DishService);
+	alertService = inject(AlertService);
 
 	tableDeletedSignal = output<string>();
 	editDishSignal = output<DishInterface>();
@@ -23,10 +27,10 @@ export class DishCardComponent {
 		this.dishService.deleteDish(this.dishSignal().name).subscribe({
 			next: (res) => {
 				this.tableDeletedSignal.emit(this.dishSignal().name);
-				console.error("Poner error en la table card");
+				this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
 			},
-			error: (err) => {
-				console.error("Poner error en la table card");
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

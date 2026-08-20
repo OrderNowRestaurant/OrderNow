@@ -5,6 +5,9 @@ import { DishInterface } from '../../../interfaces/dish/dish-interface';
 import { DishCardComponent } from '../../atoms/dish-card.component/dish-card.component';
 import { CategoryService } from '../../../services/api/category/category.service';
 import { CategoryInterface } from '../../../interfaces/category/category-interface';
+import { AlertService } from '../../../services/alert/alert.service';
+import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-dish-list',
@@ -15,6 +18,7 @@ import { CategoryInterface } from '../../../interfaces/category/category-interfa
 export class DishListComponent {
 	dishService = inject(DishService);
 	categoryService = inject(CategoryService);
+	alertService = inject(AlertService);
 
 	public categoryList: CategoryInterface[] = [];
 	public readonly filter = signal('');
@@ -43,8 +47,7 @@ export class DishListComponent {
 				this.dishService.setDishList(res.dishList);
 			},
 
-			error: (err) => {
-
+			error: (err: ErrorResponseInterface) => {
 			}
 		});
 	}
@@ -55,8 +58,8 @@ export class DishListComponent {
 				this.categoryService.setCategoryList(res.categoryList);
 			},
 
-			error: () => {
-
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		})
 	}

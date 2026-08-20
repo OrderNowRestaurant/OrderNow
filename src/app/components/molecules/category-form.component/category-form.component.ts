@@ -4,6 +4,7 @@ import { form, maxLength, minLength, required, FormField } from '@angular/forms/
 import { CategoryService } from '../../../services/api/category/category.service';
 import { AlertService } from '../../../services/alert/alert.service';
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-category-form',
@@ -40,8 +41,8 @@ export class CategoryFormComponent {
 				});
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

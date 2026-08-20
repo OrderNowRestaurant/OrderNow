@@ -5,6 +5,7 @@ import { AlertService } from '../../../services/alert/alert.service';
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { Router } from '@angular/router';
 import { RestaurantGlobalService } from '../../../services/global/restaurant-global.service';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-create-restaurant-form',
@@ -40,8 +41,8 @@ export class CreateRestaurantFormComponent {
 				this.router.navigate(["/home"]);
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

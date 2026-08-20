@@ -8,6 +8,7 @@ import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { CategoryInterface } from '../../../interfaces/category/category-interface';
 import { SectionTitleComponent } from "../../atoms/section-title.component/section-title.component";
 import { CategoryService } from '../../../services/api/category/category.service';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-dish-form',
@@ -33,8 +34,8 @@ export class DishFormComponent {
 				this.categoryList = res.categoryList;
 			},
 
-			error: () => {
-
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR)
 			}
 		});
 	}
@@ -113,8 +114,8 @@ export class DishFormComponent {
 				});
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}
@@ -138,8 +139,8 @@ export class DishFormComponent {
 				this.editSuccess.emit();
 			},
 
-			error: (err) => {
-				console.log("Ha ocurrido un error: ", err);
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}

@@ -1,20 +1,27 @@
-<dialog 
-  #alertDialog 
-  class="fixed top-auto left-auto bottom-10 right-10 m-0 p-0 
-         bg-transparent border-2 rounded-lg shadow-lg 
-         pointer-events-none open:flex items-center min-w-[30] min-h-[10] z-50"
->
-<div class="text-[var(--main-text)] flex items-center justify-between w-full gap-3 p-4 pointer-events-auto">
-    <span class="font-medium">
-        {{ this.message() }}
-    </span>
+@if (alert) {
+  <dialog
+    #alertDialog
+    class="fixed top-auto left-auto bottom-10 right-10 m-0 p-0
+           bg-transparent border-2 rounded-lg shadow-lg
+           pointer-events-none open:flex items-center min-w-[30] min-h-[10] z-50"
+    [style]="alertStyle"
+  >
+    <div class="text-[var(--main-text)] flex items-center justify-between w-full gap-3 p-4 pointer-events-auto">
+      <span class="font-medium">
+        {{ alert.message }}
+      </span>
 
-    <button 
-        (click)="close()" 
+      <button
+        (click)="close()"
         class="ml-2 font-bold cursor-pointer p-1 hover:bg-black/10 rounded-full leading-none"
-    >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-    </button>
-</div>
-
-</dialog>
+        type="button"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+          <path d="M18 6l-12 12" />
+          <path d="M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </dialog>
+}
