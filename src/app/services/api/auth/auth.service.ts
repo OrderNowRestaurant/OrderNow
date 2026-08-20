@@ -32,9 +32,18 @@ export class AuthService extends ServerApiService {
         return localStorage.getItem("username");
     }
 
+    setRoleName(roleName: string): void {
+        localStorage.setItem("roleName", roleName);
+    }
+
+    getRoleName(): string | null {
+        return localStorage.getItem("roleName");
+    }
+
     logout(): void {
         localStorage.removeItem("token");
         localStorage.removeItem("username");
+        localStorage.removeItem("roleName");
 
         this.router.navigate(['/auth'])
     }

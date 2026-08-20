@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavComponent } from "./components/organisms/nav.component/nav.component";
+import { MessageDialogComponent } from './components/molecules/message-dialog.component/message-dialog.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [RouterOutlet, NavComponent]
+  imports: [RouterOutlet, MessageDialogComponent]
 })
 export class App {
   protected readonly title = signal('OrderNow');

@@ -4,6 +4,9 @@ import { RestaurantGlobalService } from '../../services/global/restaurant-global
 import { Router } from '@angular/router';
 import { SectionTitleComponent } from "../../components/atoms/section-title.component/section-title.component";
 import { CategoryTableComponent } from "../../components/molecules/category-table.component/category-table.component";
+import { MessageTypesEnum } from '../../enums/MessageTypes.enum';
+import { AlertService } from '../../services/alert/alert.service';
+import { ErrorResponseInterface } from '../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-management.component',
@@ -14,6 +17,7 @@ import { CategoryTableComponent } from "../../components/molecules/category-tabl
 export class ManagementComponent {
 	restaurantService = inject(RestaurantService);
 	restaurantGlobalService = inject(RestaurantGlobalService);
+	alertService = inject(AlertService);
 	router = inject(Router);
 
 
@@ -27,9 +31,9 @@ export class ManagementComponent {
 				}
 			},
 
-			error: (error) => {
-				
-			}
+			error: (err: ErrorResponseInterface) => {
+                this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
+            }
 		})
 	}
 }

@@ -4,10 +4,11 @@ import { Router, RouterLink } from '@angular/router';
 import { form, minLength, required, FormField } from '@angular/forms/signals';
 import { AlertService } from '../../../../services/alert/alert.service';
 import { MessageTypesEnum } from '../../../../enums/MessageTypes.enum';
+import { ErrorResponseInterface } from '../../../../interfaces/responses/error-response';
 
 @Component({
   selector: 'app-auth-form',
-  imports: [FormField, RouterLink],
+  imports: [FormField],
   templateUrl: './auth-form.component.html',
   styleUrl: './auth-form.component.css',
 })
@@ -39,13 +40,17 @@ export class AuthFormComponent {
             next: (res) => {
                 this.authService.setToken(res.token);
                 this.authService.setUsername(res.username);
+                
+                if (res.roleName) {
+                    this.authService.setRoleName(res.roleName);
+                }
 
                 this.alertService.show(res.message, MessageTypesEnum.SUCCESS);
 
                 this.router.navigate(['/home']);
             },
-            error: (err) => {
-                console.log("Error: ", err);    
+            error: (err: ErrorResponseInterface) => {
+                this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
             }
         });
     }
@@ -61,8 +66,8 @@ export class AuthFormComponent {
                     queryParams: { form: 'login' }
                 });         
             },
-            error: (err) => {
-                console.log("Error: ", err);
+            error: (err: ErrorResponseInterface) => {
+                this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
             }
         });
     }

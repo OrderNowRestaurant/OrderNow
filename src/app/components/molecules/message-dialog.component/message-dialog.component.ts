@@ -55,12 +55,14 @@ export class MessageDialogComponent {
 		switch (type) {
 			case MessageTypesEnum.ERROR:
 				this.alertStyle = {
-				'background-color': 'var(--error)'
+				'background-color': 'var(--error)',
+				'color': 'white'
 				};
 				break;
 			case MessageTypesEnum.SUCCESS:
 				this.alertStyle = {
-				'background-color': 'var(--success)'
+				'background-color': 'var(--success)',
+				'color': 'white'
 				};
 				break;
 			default:

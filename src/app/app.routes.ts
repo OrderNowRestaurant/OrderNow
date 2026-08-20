@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthPageComponent } from './pages/auth-page.component/auth-page.component';
 import { HomeComponent } from './pages/home.component/home.component';
 import { authGuard } from './guards/auth.guard';
+import { managerGuard } from './guards/manager.guard';
 import { publicGuard } from './guards/public-guard';
 import { ManagementComponent } from './pages/management.component/management.component';
 import { restaurantResolver } from './resolvers/restaurant.resolver';
@@ -39,7 +40,8 @@ export const routes: Routes = [
             },
             {
                 path: 'management',
-                component: ManagementComponent
+                component: ManagementComponent,
+                canMatch: [managerGuard]
             },
             {
                 path: 'dishes',
@@ -47,7 +49,8 @@ export const routes: Routes = [
             },
             {
                 path: 'workers',
-                component: WorkersComponent
+                component: WorkersComponent,
+                canMatch: [managerGuard]
             }
             
         ]

@@ -20,8 +20,10 @@
 					<td class="px-3 py-2 text-[var(--text-primary)]">{{ user.username }}</td>
 					<td class="px-3 py-2 text-[var(--text-primary)]">{{ user.roleName ?? '-' }}</td>
 					<td class="px-3 py-2">
-						<button (click)="onEditUser(user)" class="text-sm px-2 py-1 rounded bg-[var(--primary-bg)] hover:bg-[var(--primary-bg-hover)] text-[var(--primary)] border border-[var(--primary)] cursor-pointer mr-2">Editar</button>
-						<button (click)="onDeleteUser(user.username)" class="text-sm px-2 py-1 rounded bg-[var(--error-bg)] hover:bg-[var(--error-bg-hover)] text-[var(--error)] border border-[var(--error)] cursor-pointer">Eliminar</button>
+						<button (click)="onEditUser(user)" class="text-sm px-2 py-1 rounded bg-[var(--primary-bg)] hover:bg-[var(--info-hover)] text-[var(--primary)] border border-[var(--primary)] cursor-pointer mr-2">Editar</button>
+						@if (user.username !== this.authService.getUsername()) {
+							<button (click)="onDeleteUser(user.username)" class="text-sm px-2 py-1 rounded bg-[var(--error-bg)] hover:bg-[var(--error-bg-hover)] text-[var(--error)] border border-[var(--error)] cursor-pointer">Eliminar</button>
+						}
 					</td>
 				</tr>
 			}

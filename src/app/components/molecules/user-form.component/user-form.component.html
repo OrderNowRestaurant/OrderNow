@@ -14,13 +14,16 @@
         <input type="password" [formField]="userForm.password" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all"/>
 
         <label>Role: </label>
-        <select [formField]="userForm.roleName" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all cursor-pointer">
-            
+        <select #roleSelect [formField]="userForm.roleName" class="text-(--text-primary) py-2 px-3 border border-(--border) rounded-lg my-2 hover:bg-(--surface-hover) transition-all cursor-pointer">
             @for (role of this.roleList; track $index) {
                 <option>{{ role.roleName }}</option>
             }
 
         </select>
+
+        @if (this.isEditingSelf()) {
+            <p class="text-sm text-[var(--text-secondary)]">No puedes cambiar el rol de tu propio usuario.</p>
+        }
 
         <button type="submit" class="bg-(--primary) text-white px-5 py-2 my-5 rounded-lg hover:bg-(--primary-hover) transition-all cursor-pointer">
             @if(this.editMode()) {
