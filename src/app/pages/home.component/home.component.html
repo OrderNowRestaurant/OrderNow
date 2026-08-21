@@ -2,6 +2,6 @@
     @if (!this.restaurantGlobalService.restaurant()?.name) {
         <app-create-restaurant-form></app-create-restaurant-form>
     } @else {
-        
+        <app-order-list></app-order-list>
     }
 </section>
