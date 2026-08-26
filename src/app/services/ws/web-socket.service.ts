@@ -1,29 +1,34 @@
-import { Service } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { OrderInterface } from '../../interfaces/order/order-interface';
 
-@Service()
+@Injectable({
+    providedIn: 'root'
+})
 export class WebSocketService {
     private socket!: WebSocket;
-    private nuevoPedidoSubject = new Subject<any>();
+    private newOrderSubject = new Subject<any>();
 
     constructor() {
-        this.conectar();
+        this.connect();
     }
 
-    private conectar() {
-        this.socket = new WebSocket('ws://localhost:8080/ws-order?token=' + localStorage.getItem('token'));
+    private connect() {
+        const token = localStorage.getItem('token');
+
+        this.socket = new WebSocket(`ws://localhost:8080/ws-order?token=${token}`);
 
         this.socket.onmessage = (event) => {
-            const pedido = JSON.parse(event.data);
-            this.nuevoPedidoSubject.next(pedido); 
-        };
-
-        this.socket.onclose = () => {
-            setTimeout(() => this.conectar(), 3000);
+            try {
+                const pedido = JSON.parse(event.data);
+                this.newOrderSubject.next(pedido);
+            } catch (e) {
+                this.newOrderSubject.next(event.data);
+            }
         };
     }
 
-    public obtenerPedidosStream(): Observable<any> {
-        return this.nuevoPedidoSubject.asObservable();
+    public obtainOrdersStream(): Observable<OrderInterface> {
+        return this.newOrderSubject.asObservable();
     }
 }
