@@ -1,1 +1,5 @@
-<p>order-list.component works!</p>
+<article class="grid grid-cols-4 gap-2">
+    @for (order of this.orderList(); track $index) {
+        <app-order-card [order]="order"></app-order-card>
+    }   
+</article>

@@ -1,0 +1,13 @@
+<div class="order-card bg-(--surface) py-2 px-5 col-span-1 rounded-lg ">
+    <h1 class="text-2xl font-bold text-center">{{ this.order().serviceTableName }}</h1>
+    <hr>
+
+    @for (dish of this.order().dishList; track $index) {
+        <div class="flex justify-between mt-2">
+            <span class="text-sm">{{ dish.name }}</span>
+            <span>x{{ dish.quantity }}</span>
+        </div>
+    }
+
+    <button (click)="this.removeOrder()" class="bg-(--primary) py-2 px-5 w-full text-white rounded-lg mt-2 cursor-pointer hover:scale-105 hover:bg-(--primary-hover) transition-all">Resolver pedido</button>
+</div>
