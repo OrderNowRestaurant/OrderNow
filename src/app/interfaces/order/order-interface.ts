@@ -1,7 +1,7 @@
 import { DishInterface } from "../dish/dish-interface";
-import { TableInterface } from "../table/table-interface";
 
 export interface OrderInterface {
+    idOrder: number;
     dishList: DishInterface[];
-    serviceTable: TableInterface;
+    serviceTableName: string;
 }
