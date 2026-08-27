@@ -7,5 +7,6 @@ export interface DishInterface {
     time: number,
     price: number,
     restaurant: RestaurantInterface,
-    category: CategoryInterface
+    category: CategoryInterface,
+    quantity: number
 }

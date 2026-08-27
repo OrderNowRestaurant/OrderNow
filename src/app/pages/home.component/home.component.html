@@ -2,6 +2,7 @@
     @if (!this.restaurantGlobalService.restaurant()?.name) {
         <app-create-restaurant-form></app-create-restaurant-form>
     } @else {
-        
+        <app-section-title [title]="'Pedidos'" [subTitle]="'Pedidos actualizados en tiempo real'"></app-section-title>
+        <app-order-list></app-order-list>
     }
 </section>

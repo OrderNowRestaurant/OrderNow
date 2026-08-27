@@ -1,0 +1,5 @@
+<article class="grid grid-cols-4 gap-2">
+    @for (order of this.orderList(); track $index) {
+        <app-order-card [order]="order" (orderRemoved)="removeOrder($event)"></app-order-card>
+    }   
+</article>
