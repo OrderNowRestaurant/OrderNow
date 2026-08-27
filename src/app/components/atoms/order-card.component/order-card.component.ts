@@ -1,6 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { OrderInterface } from '../../../interfaces/order/order-interface';
 import { OrderService } from '../../../services/api/order/order.service';
+import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
+import { AlertService } from '../../../services/alert/alert.service';
+import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 
 @Component({
   selector: 'app-order-card',
@@ -11,19 +14,17 @@ import { OrderService } from '../../../services/api/order/order.service';
 export class OrderCardComponent {
 	orderService = inject(OrderService);
 	order = input.required<OrderInterface>();
-
-	ngOnInit() {
-		console.log(this.order().dishList);
-	}
-
+	orderRemoved = output<number>();
+	alertService = inject(AlertService);
+	
 	public removeOrder() {
 		this.orderService.removeOrder(this.order()).subscribe({
 			next: (data) => {
-				console.log(data);
+				this.orderRemoved.emit(this.order().idOrder);
 			},
 
-			error: () => {
-
+			error: (err: ErrorResponseInterface) => {
+				this.alertService.show(err.error.message, MessageTypesEnum.ERROR);
 			}
 		});
 	}
