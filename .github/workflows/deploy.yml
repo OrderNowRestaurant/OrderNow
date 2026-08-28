@@ -57,7 +57,7 @@ jobs:
           NODE
 
       - name: Build Angular application
-        run: pnpm build -- --base-href "/${{ github.event.repository.name }}/"
+        run: pnpm exec ng build --base-href "/${{ github.event.repository.name }}/"
 
       - name: Prepare Pages artifact
         run: cp dist/OrderNow/browser/index.html dist/OrderNow/browser/404.html
