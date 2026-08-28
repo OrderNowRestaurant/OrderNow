@@ -1,5 +1,5 @@
 import { inject, Service } from '@angular/core';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 
 @Service()

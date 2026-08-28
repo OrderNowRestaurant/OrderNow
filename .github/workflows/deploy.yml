@@ -1,0 +1,77 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      API_URL: ${{ secrets.API_URL }}
+      FRONTEND_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Configure production environment
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+
+          if (!process.env.API_URL) {
+            throw new Error('The API_URL GitHub secret is required.');
+          }
+
+          const environment = `export const environment = ${JSON.stringify({
+            URL_BASE: process.env.API_URL,
+            FRONTEND_URL: process.env.FRONTEND_URL,
+          }, null, 4)};\n`;
+
+          fs.writeFileSync('src/environments/environment.ts', environment);
+          NODE
+
+      - name: Build Angular application
+        run: pnpm build -- --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Prepare Pages artifact
+        run: cp dist/OrderNow/browser/index.html dist/OrderNow/browser/404.html
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/OrderNow/browser
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

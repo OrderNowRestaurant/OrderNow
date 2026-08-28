@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
