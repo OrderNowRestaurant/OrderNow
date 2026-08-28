@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { QRCodeComponent } from 'angularx-qrcode';
+import { environment } from '../../../../environments/environment.development';
 
 
 @Component({
@@ -9,5 +10,11 @@ import { QRCodeComponent } from 'angularx-qrcode';
   styleUrl: './qr-code.component.css',
 })
 export class QrCodeComponent {
-  	@Input() qrToken: string = "";
+    @Input() qrToken: string = "";
+
+    get qrUrl(): string {
+      const url = new URL(environment.FRONTEND_URL);
+      url.searchParams.set('token', this.qrToken);
+      return url.toString();
+    }
 }
