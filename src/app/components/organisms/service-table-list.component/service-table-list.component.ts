@@ -6,6 +6,7 @@ import { TableCardComponent } from "../../atoms/table-card.component/table-card.
 import { ErrorResponseInterface } from '../../../interfaces/responses/error-response';
 import { MessageTypesEnum } from '../../../enums/MessageTypes.enum';
 import { AlertService } from '../../../services/alert/alert.service';
+import { QrPdfService } from '../../../services/pdf/qr-pdf.service';
 
 @Component({
   selector: 'app-service-table-list',
@@ -16,6 +17,8 @@ import { AlertService } from '../../../services/alert/alert.service';
 export class ServiceTableListComponent {
 	tableService = inject(TableService);
 	alertService = inject(AlertService);
+	qrPdfService = inject(QrPdfService);
+	downloadingPdf = false;
 
 	ngOnInit(): void {
 		this.loadTables();
@@ -40,5 +43,16 @@ export class ServiceTableListComponent {
 		);
 		
 		this.tableService.setTables(updatedTables);
+	}
+
+	public async downloadQrCodes(): Promise<void> {
+		this.downloadingPdf = true;
+		try {
+			await this.qrPdfService.downloadTablesQrCodes(this.tableService.tableList());
+		} catch {
+			this.alertService.show('No se pudo generar el PDF de los códigos QR', MessageTypesEnum.ERROR);
+		} finally {
+			this.downloadingPdf = false;
+		}
 	}
 }

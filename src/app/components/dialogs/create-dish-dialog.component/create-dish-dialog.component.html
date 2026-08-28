@@ -1,5 +1,5 @@
-<dialog #dialog class="mx-auto my-auto px-5 py-2 rounded-lg bg-(--surface) text-center">
+<dialog #dialog class="mx-auto my-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-2xl overflow-y-auto rounded-lg bg-(--surface) px-4 py-2 text-center shadow-xl sm:px-8">
     <app-dish-form (editSuccess)="close()"></app-dish-form>
 
-    <button (click)="this.close()" class="bg-(--error) hover:bg-(--error-hover) text-white px-5 py-2 rounded-lg cursor-pointer">Cerrar</button>
+    <button (click)="this.close()" class="w-full cursor-pointer rounded-lg bg-(--error) px-5 py-2 text-white hover:bg-(--error-hover) sm:w-auto">Cerrar</button>
 </dialog>
