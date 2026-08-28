@@ -1,5 +1,6 @@
 .order-card {
-    animation: appear 0.8s ease-out forwards;
+    animation: appear 0.45s ease-out both;
+    overflow: hidden;
 }
 
 @keyframes appear {
