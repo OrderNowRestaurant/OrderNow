@@ -12,10 +12,16 @@ import { RestaurantGlobalService } from '../../../services/global/restaurant-glo
 })
 export class NavComponent {
 	authService = inject(AuthService);
+	public menuOpen = false;
 
   	restaurantGlobalService = inject(RestaurantGlobalService);
 
+	public toggleMenu(): void {
+		this.menuOpen = !this.menuOpen;
+	}
+
 	public closeSession(): void {
+		this.menuOpen = false;
 		this.authService.logout();
 	}
 }

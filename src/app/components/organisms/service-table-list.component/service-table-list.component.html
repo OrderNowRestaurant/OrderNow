@@ -1,6 +1,17 @@
+<div class="mt-5 flex justify-start">
+    <button
+        type="button"
+        class="w-full cursor-pointer rounded-lg bg-(--primary) px-4 py-2 font-semibold text-white hover:bg-(--primary-hover) disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+        [disabled]="this.downloadingPdf || this.tableService.tableList().length === 0"
+        (click)="this.downloadQrCodes()"
+    >
+        {{ this.downloadingPdf ? 'Generando PDF...' : 'Descargar QR de las mesas' }}
+    </button>
+</div>
+
 <app-form-service-table></app-form-service-table>
 
-<section class="mt-5 flex gap-5 w-full flex-wrap">
+<section class="mt-5 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
     @if (this.tableService.tableList() != null) {
         @if (this.tableService.tableList().length > 0) {
             @for (serviceTable of this.tableService.tableList(); track $index) {
