@@ -5,7 +5,7 @@ import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 @Service()
 export class ServerApiService {
 
-    private BASE_URL: string = environment.URL_BASE;
+    private BASE_URL: string = environment.URL_BASE + "/api/";
     private http = inject(HttpClient);
 
     protected getHeaders(): HttpHeaders {
