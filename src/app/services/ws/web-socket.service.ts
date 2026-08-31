@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { OrderInterface } from '../../interfaces/order/order-interface';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class WebSocketService {
     private connect() {
         const token = localStorage.getItem('token');
 
-        this.socket = new WebSocket(`ws://localhost:8080/ws-order?token=${token}`);
+        this.socket = new WebSocket(`ws://${environment.URL_BASE}/ws-order?token=${token}`);
 
         this.socket.onmessage = (event) => {
             try {
