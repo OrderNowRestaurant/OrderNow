@@ -17,7 +17,7 @@ export class WebSocketService {
     private connect() {
         const token = localStorage.getItem('token');
 
-        this.socket = new WebSocket(`ws://${environment.URL_BASE}/ws-order?token=${token}`);
+        this.socket = new WebSocket(environment.URL_BASE.replace(/^http/, 'ws') + `/ws-order?token=${token}`);
 
         this.socket.onmessage = (event) => {
             try {
