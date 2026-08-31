@@ -1,4 +1,4 @@
-# OrderNow Client
+# OrderNow
 
 ![OrderNow Logo](public/images/logo.png)
 
