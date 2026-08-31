@@ -22,7 +22,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     env:
       API_URL: ${{ secrets.API_URL }}
-      FRONTEND_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+      FRONTEND_URL: ${{ secrets.FRONTEND_URL  }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -46,6 +46,10 @@ jobs:
 
           if (!process.env.API_URL) {
             throw new Error('The API_URL GitHub secret is required.');
+          }
+
+          if (!process.env.FRONTEND_URL) {
+            throw new Error('The FRONTEND_URL GitHub secret is required for the frontend configuration.');
           }
 
           const environment = `export const environment = ${JSON.stringify({
